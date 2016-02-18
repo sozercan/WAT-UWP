@@ -46,10 +46,9 @@ If you don't have header enabled, you can not use the inking since there won't b
 
 ### Jumplist
 Template automatically pulls in all navbar items to the app jumplist for quick navigation.
-
 (This feature is only available on Windows 10 Version 1511 or later)
 
-<img src="http://i.imgur.com/mQzEvcM.gif" width="500" />
+<img src="http://i.imgur.com/XqoWSvn.gif" width="200" />
 
 ### Toolbar
 Appbar items are moved to a WinJS.UI.Toolbar at the bottom.
