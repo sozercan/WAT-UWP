@@ -14,7 +14,7 @@ Template automatically pulls in all items from all navbar, appbar, settings and 
  - For items in navbar, appbar and settings; you can use "AppName Go [to] ItemName" to navigate 
  - For search; you can use "AppName Search [for] SearchTerm" to search
  
-![](http://i.imgur.com/mQzEvcM.gif)
+<img src="http://i.imgur.com/mQzEvcM.gif" width="500" />
 
 ### In-app Voice Commands
 
@@ -22,32 +22,32 @@ Similar to Cortana, but only pulls in all navbar commands, and search. You can t
 
  - Search will popup a new dialog box that accepts user voice input for any search terms.
  
-![](http://i.imgur.com/66al2IB.gif)
+<img src="http://i.imgur.com/66al2IB.gif" width="500" />
 
 ### Splitview
 
 Template uses the "wat_navbar"  property in the configuration file to populate this list.
 
-![](http://i.imgur.com/1Zav2Nu.gif)
+<img src="http://i.imgur.com/1Zav2Nu.gif" width="500" />
 
 ### AutoSuggest Box
 Template uses the "wat_search" property in the configuration file to direct search terms.
 
-![](http://i.imgur.com/2ApsR1Z.gif)
+<img src="http://i.imgur.com/2ApsR1Z.gif" width="500" />
 
 ### Inking
 Enables user to ink and share inking to any share target app.
 You can toggle this feature via the "wat_ink" toggle in the configuration file.
 If you don't have header enabled, you can not use the inking since there won't be a button to toggle it.
 
-![](http://i.imgur.com/lG43RIA.gif)
+<img src="http://i.imgur.com/lG43RIA.gif" width="500" />
 
 ### Jumplist
 Template automatically pulls in all navbar items to the app jumplist for quick navigation.
 
 (This feature is only available on Windows 10 Version 1511 or later)
 
-![](http://i.imgur.com/mQzEvcM.gif)
+<img src="http://i.imgur.com/mQzEvcM.gif" width="500" />
 
 ### Toolbar
 Appbar items are moved to a WinJS.UI.Toolbar at the bottom.
