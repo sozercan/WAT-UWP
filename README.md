@@ -19,8 +19,10 @@ Template automatically pulls in all items from all navbar, appbar, settings and 
 ### In-app Voice Commands
 
 Similar to Cortana, but only pulls in all navbar commands, and search. You can toggle this feature in the configuration file.
-
+ - Home will navigate to home URL.
+ - Back will navigate to the last page.
  - Search will popup a new dialog box that accepts user voice input for any search terms.
+ - Any other navigation command will navigate to it's predefined url.
  
 <img src="http://i.imgur.com/66al2IB.gif" width="500" />
 
