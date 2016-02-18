@@ -1,0 +1,72 @@
+﻿{
+    "wat_comment": "This is a sample globalizatiooon file for the 'es' culture.",
+    "$schema": "/schema/schema-manifest.json?reload",
+    "wat_errors": {
+        "alertMessage": "Disculpe, hubo un error. El mismo ha sido guardado. Por favor, contáctese con nosotros si el problema persiste."
+    },
+    "wat_share": {
+        "buttonText": "Compartir",
+        "title": "WAT Documentation",
+        "message": "{url} compartida con {appLink} para aplicaciones Windows Phone y Windows 8 Store."
+    },
+    "wat_offline": {
+        "message": "Parece que se ha desconectado de Internet. Por favor, reconectese para poder usar esta aplicación.",
+        "superCache": {
+            "offlineMessage": "Se ha desconectado de Internet. Algunas funciones de la aplicación pueden no estar disponibles hasta que se restablezca la conexión."
+        }
+    },
+    "wat_appBar": {
+        "buttons": [
+            {
+                "label": "Configuración"
+            },
+            {
+                "label": "Comenzar"
+            }
+        ]
+    },
+    "wat_navBar": {
+        "buttons": [
+            {
+                "label": "Atrás"
+            },
+            {
+                "label": "Inicio"
+            },
+            {
+                "label": "Referencia JSON"
+            },
+            {
+                "label": "Sobre WAT"
+            },
+            {
+                "label": "Comenzar"
+            },
+            {
+                "label": "Soporte"
+            },
+            {
+                "label": "Registrar Mensaje"
+            }
+        ]
+    },
+    "wat_search": {
+        "onScreenSearchOptions": {
+            "placeholderText": "¿Qué estás buscando?"
+        }
+    },
+    "wat_secondaryPin": {
+        "buttonText": "Anclar"
+    },
+    "wat_settings": {
+        "items": [
+            {
+                "title": "Soporte"
+            },
+            {
+                "title": "Sitio de Codeplex",
+                "page": "http://www.codeplex.com"
+            }
+        ]
+    }
+}

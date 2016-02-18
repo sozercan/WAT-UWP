@@ -1,0 +1,533 @@
+﻿/* 
+Modifications for top-level elements html, body and iframe.
+*/
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    -ms-user-select: none;
+}
+
+html {
+    overflow: hidden;
+}
+body {
+    -ms-content-zooming: none;
+}
+
+iframe {
+    border: 0;
+}
+
+html:-ms-lang(ar, dv, fa, he, ku-Arab, pa-Arab, prs, ps, sd-Arab, syr, ug, ur, qps-plocm) {
+    direction: rtl;
+}
+
+/*.stage {
+    position: relative;
+}*/
+
+#main-view, #offline-view, .stage {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#offline-view {
+    display: none;
+}
+
+.overlay-stage {
+    display: none;
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,.5);
+}
+
+.modal-content {
+    width: 70%;
+    height: 80%;
+    margin: 2.5% 0 0 15%; /* Not sure why top needs to be 2.5%... seems like it should be 5%, but that isn't centered */
+}
+
+.win-closebutton {
+    position: absolute;
+    display: block;
+    top: 5%;
+    right: 16%;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    line-height: 30px;
+    color: #666;
+    font-weight: bold;
+    background: transparent;
+    border: solid 4px #666;
+    border-radius: 100%;
+    font-size: 1.4em;
+    opacity: 0.7;
+}
+
+.win-closebutton:hover {
+    opacity: 1;
+}
+
+.webview-overlay {
+    width: 100%;
+    height: 100%;
+    top:0;
+    left:0;
+    position:absolute;
+    transition: opacity 0.1s ease-in-out 0.1s;
+}
+
+.transparent-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    opacity: 0.01;
+    display: none;
+}
+
+.overlay-wp {
+    background-color: black !important;
+    opacity: 0.3 !important;
+}
+
+.fadeOut {
+    opacity: 0;
+}
+
+.stage x-ms-webview {
+    /*transition: opacity ease-out .3s;
+    transition-delay: .3s;
+    opacity:1;*/
+}
+
+.loading.stage x-ms-webview {
+    /*opacity: .01 !important;*/
+}
+
+.loading-wrapper {
+    display: none;
+    z-index: 10;
+}
+
+.loading .loading-wrapper {
+    display: block;
+}
+
+.loading-progress {
+    position: absolute;
+    top: 50%;
+    left: 45%;
+    width: 10%;
+}
+
+.extendedSplashScreen .loading-progress {
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    width: 60%;
+    margin: 0;
+}
+
+.extendedSplashScreen {
+    display: none;
+    background-color: #000000;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    text-align: center;
+    z-index: 15;
+}
+
+.extendedSplashScreen .extendedSplashImage {
+    position: absolute;
+}
+
+/*
+Explicitly define a Segoe UI font-family so that we can assign Segoe UI 
+Semilight to an appropriate font-weight.
+*/
+@font-face {
+    font-family: "Segoe UI";
+    font-weight: 200;
+    src: local("Segoe UI Light");
+}
+@font-face {
+    font-family: "Segoe UI";
+    font-weight: 300;
+    src: local("Segoe UI Semilight");
+}
+@font-face {
+    font-family: "Segoe UI";
+    font-weight: 400;
+    src: local("Segoe UI");
+}
+@font-face {
+    font-family: "Segoe UI";
+    font-weight: 600;
+    src: local("Segoe UI Semibold");
+}
+@font-face {
+    font-family: "Segoe UI";
+    font-weight: 700;
+    src: local("Segoe UI Bold");
+}
+@font-face {
+    font-family: "Segoe UI";
+    font-style: italic;
+    font-weight: 400;
+    src: local("Segoe UI Italic");
+}
+@font-face {
+    font-family: "Segoe UI";
+    font-style: italic;
+    font-weight: 700;
+    src: local("Segoe UI Bold Italic");
+}
+
+/*
+Explicitly define font-families for Microsoft Yahei UI and Microsoft JhengHei UI so that we can fallback requests for, 
+    Microsoft Yahei UI Semilight and Microsoft JhengHei UI Semilight, to Regular instead of Light fonts.
+*/
+@font-face {
+    font-family: "Microsoft Yahei UI";
+    font-weight: 200;
+    src: local("Microsoft Yahei UI Light");
+}
+@font-face {
+    font-family: "Microsoft Yahei UI";
+    font-weight: 300;
+    src: local("Microsoft Yahei UI");
+}
+@font-face {
+    font-family: "Microsoft Yahei UI";
+    font-weight: 500;
+    src: local("Microsoft Yahei UI");
+}
+@font-face {
+    font-family: "Microsoft Yahei UI";
+    font-weight: 600;
+    src: local("Microsoft Yahei UI Bold");
+}
+
+@font-face {
+    font-family: "Microsoft JhengHei UI";
+    font-weight: 200;
+    src: local("Microsoft JhengHei UI Light");
+}
+@font-face {
+    font-family: "Microsoft JhengHei UI";
+    font-weight: 300;
+    src: local("Microsoft JhengHei UI");
+}
+@font-face {
+    font-family: "Microsoft JhengHei UI";
+    font-weight: 500;
+    src: local("Microsoft JhengHei UI");
+}
+@font-face {
+    font-family: "Microsoft JhengHei UI";
+    font-weight: 600;
+    src: local("Microsoft JhengHei UI Bold");
+}
+
+/* 
+Offsets for sprite versions.
+*/
+button:hover .win-commandimage, button:active .win-commandimage {
+    background-position: -40px 0;
+}
+button:hover:active .win-commandimage {
+    background-position: -80px 0;
+}
+
+button:-ms-keyboard-active .win-commandimage {
+    background-position: -80px 0;
+}
+button:disabled .win-commandimage,
+button:disabled:active .win-commandimage {
+    background-position: -120px 0;
+}
+
+/*
+Grippers in touch selection do not dissapear when focus moves to an element outside of the selection range and they are always drawn on a layer above all HTML elemements.
+When an _Overlay derived control such as AppBar/Flyout/Menu/SettingsFlyout is invoked and steals focus, if that _Overlay is laid out on top of the elements in the touch selection,
+the grippers can still be seen over the _Overlay and its contents. However, all grippers any where in the document will be hidden whenever the current active element has or inherits 
+the style "-ms-touch-select: none;" 
+*/
+.win-overlay {
+    -ms-touch-select: none;
+}
+
+/* For input elements we filter type using the :not selector to capture any unrecognized user specified types which would just default to the form and function of a textbox*/
+.win-overlay input:not([type="file"]),
+.win-overlay input:not([type="radio"]),
+.win-overlay input:not([type="checkbox"]),
+.win-overlay input:not([type="button"]),
+.win-overlay input:not([type="range"]),
+.win-overlay input:not([type="image"]),
+.win-overlay input:not([type="reset"]),
+.win-overlay input:not([type="hidden"]),
+.win-overlay input:not([type="submit"]),
+.win-overlay textarea,
+.win-overlay [contenteditable=true]{
+    -ms-touch-select: grippers;
+}
+
+/* Singleton element maintained by _Overlay, used for getting accurate floating point measurements of the total size of the visual viewport. 
+    Floating point is necesary in high DPI resolutions. */
+.win-visualviewport-space {
+    position:-ms-device-fixed;
+    height: 100vh;
+    width: 100vw;
+    visibility:hidden;
+}
+
+/*
+Progress control.
+*/
+progress {
+    width: 180px;
+    height: 6px;
+    border-style: none;
+}
+progress.win-medium {
+    width: 280px;
+}
+progress.win-large {
+    width: 100%;
+}
+progress::-ms-fill {
+    border-style: none;
+}
+progress:indeterminate {
+    height: 4px;
+    padding: 1px 0; /* Indeterminate dots should be 4px tall, but overall control stays 6px. */
+}
+@keyframes win-progress-fade-out {
+    from {
+        opacity: 1.0;
+    }
+    to {
+        opacity: 0.5;
+    }
+}
+progress.win-paused:not(:indeterminate) {
+    animation-name: win-progress-fade-out;
+    animation-duration: 3s;
+    animation-timing-function: cubic-bezier(0.03, 0.76, 0.31, 1.0);
+    opacity: 0.5;
+}
+progress.win-error::-ms-fill {
+    opacity: 0;
+}
+progress.win-ring:indeterminate::-ms-fill {
+    animation-name: -ms-ring;
+}
+progress.win-ring {
+    width: 20px;
+    height: 20px;
+}
+progress.win-medium.win-ring {
+    width: 40px;
+    height: 40px;
+}
+progress.win-large.win-ring {
+    width: 60px;
+    height: 60px;
+}
+
+form {
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: "Segoe UI Command";
+    src: local("Segoe UI Symbol");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@keyframes WinJS-opacity-in               { from { opacity: 0; } to { opacity: 1; } }
+@keyframes WinJS-opacity-out              { from { opacity: 1; } to { opacity: 0; } }
+
+@keyframes WinJS-scale-up                 { from { transform: scale(0.85); } to { transform: scale(1); } }
+@keyframes WinJS-scale-down               { from { transform: scale(1); } to { transform: scale(0.85); } }
+
+@keyframes WinJS-default-remove           { from { transform: translateX( 11px); } to { transform: none; } }
+@keyframes WinJS-default-remove-rtl       { from { transform: translateX(-11px); } to { transform: none; } }
+
+@keyframes WinJS-default-apply            { from { transform: none; } to { transform: translateX( 11px); } }
+@keyframes WinJS-default-apply-rtl        { from { transform: none; } to { transform: translateX(-11px); } }
+
+@keyframes WinJS-showEdgeUI               { from { transform: translateY(-70px); } to { transform: none; } }
+@keyframes WinJS-showPanel                { from { transform: translateX( 364px); } to { transform: none; } }
+@keyframes WinJS-showPanel-rtl            { from { transform: translateX(-364px); } to { transform: none; } }
+@keyframes WinJS-hideEdgeUI               { from { transform: none; } to { transform: translateY(-70px); } }
+@keyframes WinJS-hidePanel                { from { transform: none; } to { transform: translateX( 364px); } }
+@keyframes WinJS-hidePanel-rtl            { from { transform: none; } to { transform: translateX(-364px); } }
+
+@keyframes WinJS-showPopup                { from { transform: translateY(50px); } to { transform: none; } }
+
+@keyframes WinJS-dragSourceEnd            { from { transform: translateX( 11px) scale(1.05); } to { transform: none; } }
+@keyframes WinJS-dragSourceEnd-rtl        { from { transform: translateX(-11px) scale(1.05); } to { transform: none; } }
+
+@keyframes WinJS-enterContent             { from { transform: translateX( 40px); } to { transform: none; } }
+@keyframes WinJS-enterContent-rtl         { from { transform: translateX(-40px); } to { transform: none; } }
+
+@keyframes WinJS-exit                     { from { transform: none; } to { transform: none; } }
+
+@keyframes WinJS-enterPage                { from { transform: translateX( 100px); } to { transform: none; } }
+@keyframes WinJS-enterPage-rtl            { from { transform: translateX(-100px); } to { transform: none; } }
+
+@keyframes WinJS-updateBadge              { from { transform: translateY(24px); } to { transform: none; } }
+
+/*Flyout control animations*/
+@keyframes WinJS-showFlyoutTop               { from { transform: translateY(50px); } to { transform: none; } }
+@keyframes WinJS-showFlyoutBottom            { from { transform: translateY(-50px); } to { transform: none; } }
+@keyframes WinJS-showFlyoutLeft              { from { transform: translateX(50px); } to { transform: none; } }
+@keyframes WinJS-showFlyoutRight             { from { transform: translateX(-50px); } to { transform: none; } }
+
+
+
+body{
+    font-family: "Segoe UI";
+}
+
+body:-ms-lang(am, ti) {
+    font-family: "Ebrima";
+}
+
+body:-ms-lang(as, bn, gu, hi, kn, kok, ml, mr, ne, or, pa, sat-Olck, si, srb-Sora, ta, te) {
+    font-family: 
+        "Nirmala UI";
+}
+
+body:-ms-lang(chr-CHER-US) {
+    font-family: 
+        "Gadugi";
+}
+
+body:-ms-lang(ja) {
+    font-family: 
+        "Meiryo UI";
+}
+
+body:-ms-lang(km, lo, th, bug-Bugi)) {
+    font-family: 
+        "Leelawadee UI";
+}
+
+body:-ms-lang(ko) {
+    font-family: 
+        "Malgun Gothic";
+}
+
+body:-ms-lang(jv-Java) {
+    font-family: 
+        "Javanese Text";
+}
+
+body:-ms-lang(cop-Copt) {
+    font-family: 
+        "Segoe UI Symbol";
+}
+
+body:-ms-lang(zh-CN, zh-Hans, zh-SG) {
+    font-family: 
+        "Microsoft YaHei UI";
+}
+
+body:-ms-lang(zh-HK, zh-TW, zh-Hant, zh-MO) {
+    font-family: 
+        "Microsoft JhengHei UI";
+}
+
+.offlineMessageContainer{
+    position: absolute;
+    top: 35px;
+    left: 2%;
+    height: 0px;
+    width: 96%;
+    text-align: center;
+    z-index: 45;
+    overflow: visible;
+    text-shadow: none;
+    color: #222;
+    line-height: 1em;
+}
+
+.offlineMessageContainer .offlineMessage {
+    display: inline-block;
+    padding: 6px 10px;
+    background: #fef2ad;
+    border: 1px solid #fed973;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    font-size: 14px;
+    -webkit-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.15);
+    position: relative;
+}
+
+.offlineMessageContainer .offlineMessageHide {
+    font-size: 12px;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    padding: 8px;
+    margin: -6px -8px -8px 4px;
+    color: rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    float: right;
+}
+
+.win-commandimage {
+    font-family: 'Segoe MDL2 Assets' !important;
+}
+
+
+@media screen and (orientation: portrait) and (max-height: 1029px) {
+    .win-closebutton {
+        top: 3%;
+    }
+    #dialog-view {
+        height: 80%;
+    }
+}
+
+@media screen and (orientation: portrait) and (min-height: 1900px) {
+    .win-closebutton {
+        top: 18%;
+    }
+    #dialog-view {
+        height: 60%;
+        margin-top: 30%;
+    }
+}
+
+@media screen and (orientation: portrait) and (min-height: 1030px) and (max-height: 1900px) {
+    .win-closebutton {
+        top: 19%;
+    }
+
+    #dialog-view {
+        height: 60%;
+        margin-top: 30%;
+    }
+}

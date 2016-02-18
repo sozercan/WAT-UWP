@@ -1,0 +1,144 @@
+﻿<html>
+<head>
+    <!--
+     Copyright (c) Microsoft Corporation
+
+     All rights reserved.
+
+     Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+     THIS CODE IS PROVIDED *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABLITY OR NON-INFRINGEMENT.
+
+     See the Apache Version 2.0 License for specific language governing permissions and limitations under the License.
+    -->
+    <title>WAT</title>
+
+    <!-- WinJS references -->
+    <script src="/winjs/js/base.js"></script>
+    <script src="/winjs/js/ui.js"></script>
+
+    <!-- At runtime, ui-themed.css resolves to ui-themed.light.css or ui-themed.dark.css
+    based on the user’s theme setting. This is part of the MRT resource loading functionality. -->
+    <link href="/css/default.css" rel="stylesheet" />
+    <link data-href="THEME-PLACEHOLDER" rel="stylesheet" />
+
+    <!-- App Specific references -->
+    <script src="/js/default.js"></script>
+
+    <!-- Web App Template references -->
+    <link href="/template/css/base.css" rel="stylesheet" />
+    <link href="/css/wrapper-styles.css" rel="stylesheet" />
+
+    <script src="/template/js/wat.js"></script>
+    <script src="/template/js/log.js"></script>
+    <script src="/template/js/jsonValidator/tv4.min.js"></script>
+    <script src="/template/js/config.js"></script>
+    <script src="/template/js/utilities.js"></script>
+    <script src="/template/js/styles.js"></script>
+    <script src="/template/js/nav.js"></script>
+    <script src="/template/js/share.js"></script>
+    <script src="/template/js/orientation.js"></script>
+    <script src="/template/js/NotificationHub.js"></script>
+    <script src="/template/js/notify.js"></script>
+    <script src="/template/js/tiles.js"></script>
+    <script src="/template/js/settings.js"></script>
+    <script src="/template/js/header.js"></script>
+    <script src="/template/js/search.js"></script>
+    <script src="/template/js/idb/localIDBInterceptor.js"></script>
+    <script src="/template/js/offline.js"></script>
+    <script src="/template/js/customscript.js"></script>
+    <script src="/template/js/geoLocation.js"></script>
+    <script src="/template/js/titlebar.js"></script>
+    <script src="/template/js/speech.js"></script>
+    <script src="/template/js/ink.js"></script>
+</head>
+<body>
+    <div class="viewport" id="viewport">
+        <div class="surface" id="surface">
+            <div id="splitView" class="splitView" data-win-control="WinJS.UI.SplitView" data-win-options="{ panePlacement: 'left', closedDisplayMode : 'none', openedDisplayMode: 'overlay'}">
+                <div class="nav-commands" id="nav-commands"></div>
+            </div>
+            <div class="content">
+                    <div id="header" class="header">
+                        <button class="win-splitviewpanetoggle" id="splitViewToggle"
+                                data-win-control="WinJS.UI.SplitViewPaneToggle"
+                                data-win-options="{ splitView: select('.splitView') }">
+                        </button>                        
+                        <div class="logoarea">
+                            <img id="logo" />
+                        </div>
+                        <div id="title" class="titlearea win-type-ellipsis"></div>
+                        <div id="searchFlyout" class="searchFlyout" data-win-control="WinJS.UI.Flyout">
+                            <div data-win-control="WinJS.UI.AutoSuggestBox" id="searchBox" class="searchBox"></div>
+                        </div>
+                        <div data-win-control="WinJS.UI.ToolBar" id="toolBar" data-win-options="{closedDisplayMode:'compact'}">
+                            <button id="speechButton" data-win-control="WinJS.UI.Command" data-win-options="{
+                                id:'cmdSpeech',
+                                label:'Speech',
+                                section:'primary',
+                                icon: 'microphone',
+                                type: 'flyout',
+                                flyout:select('#speechFlyout')}"></button>
+                            <button id="shareButton" data-win-control="WinJS.UI.Command" data-win-options="{
+                                id:'cmdShare',
+                                label:'Share',
+                                section:'primary',
+                                icon: '&#xE72D;',
+                                type:'button'}"></button>
+                            <button id="inkButton" data-win-control="WinJS.UI.Command" data-win-options="{
+                                id:'cmdInk',
+                                label:'Ink',
+                                section:'primary',
+                                icon: 'edit',
+                                type:'button'}"></button>
+                            <button id="searchButton" data-win-control="WinJS.UI.Command" data-win-options="{
+                                id:'cmdSearch',
+                                label:'Search',
+                                section:'primary',
+                                icon: 'zoom',
+                                type:'button'}">
+                            </button>
+                            <button id="privacyButton" data-win-control="WinJS.UI.Command" data-win-options="{
+                                id:'cmdPrivacy',
+                                label:'Privacy Policy',
+                                section:'secondary',
+                                type:'button'}">
+                            </button>
+                        </div>
+                        <div id="speechFlyout" data-win-control="WinJS.UI.Flyout">
+                            <div>Always listening: say any navigation command or search anytime.</div>
+                        </div>
+                    </div>
+                    <div class="stage" id="stage">
+                        <div id="offlineMessage" style="display: none;" class="offlineMessageContainer">
+                            <span class="offlineMessage">
+                                <b id="offlineMessageHide" class="offlineMessageHide">X</b>
+                                <span class="offlineMessageContent"></span>
+                            </span>
+                        </div>
+
+                        <canvas id="inkCanvas"></canvas>
+
+                        <x-ms-webview id="main-view"></x-ms-webview>
+                        <x-ms-webview id="offline-view"></x-ms-webview>
+                        <div class="webview-overlay"></div>
+                        <div class="transparent-overlay"></div>
+
+                        <div id="loading-wrapper" class="loading-wrapper">
+                            <progress id="page-load-progress" class="loading-progress win-ring win-large"></progress>
+                        </div>
+                        <div id="modal-stage" class="stage overlay-stage">
+                            <x-ms-webview id="dialog-view" class="modal-content"></x-ms-webview>
+                            <button id="close" class="win-closebutton">X</button>
+                        </div>
+                    </div>
+                    <div id="extendedSplashScreen" class="extendedSplashScreen" style="background-color: white">
+                        <img class="extendedSplashImage" src="/images/splashscreen.png" alt="Launching..." />
+                        <progress class="loading-progress"></progress>
+                    </div>
+                <div data-win-control="WinJS.UI.ToolBar" id="appBar" class="customColor" data-win-options="{closedDisplayMode:'full'}"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,280 @@
+{
+    "$schema": "/schema/schema-manifest.json",
+    "start_url": "http://wat-docs.azurewebsites.net/",
+    "name" :  "Web Application Template",
+
+    "wat_speech": {
+        "inAppSpeech": {
+          "enabled": true,
+          "search": true
+        },
+
+        "cortana": {
+          "enabled": true,
+          "navBar": true,
+          "appBar": true,
+          "settings": true,
+          "search": true
+        }
+    },
+
+    "wat_customScript": {
+      "scriptFiles": [
+        "js/injection-script-example.js"
+      ]
+    },
+
+    "wat_navigation": {
+        "hideOnPageBackButton": false,
+        "hideBackButtonOnMatch": [
+            "{baseURL}/Json#livetiles"
+        ],
+        "pageLoadingPartial": "/template/partials/page-loading.html"
+    },
+
+    "wat_errors": {
+        "showAlertOnError": false,
+        "alertMessage": "Sorry, but there was an error. It has been logged. Please contact us if the issue continues.",
+        "redirectToErrorPage": false,
+        "errorPageURL": "error-example.html"
+    },
+
+    "wat_logging": {
+        "enabled": false,
+        "level": "info",
+        "disableWithoutDebugger": false,
+        "hideTagDisplay": true,
+        "ignoreTags": [
+            "winjs"
+        ],
+        "logErrorsForIgnoredTags": true,
+        "overrideConsoleMethods": true,
+        "disableConsoleLog": false,
+        "fileLog": {
+            "enabled": false,
+            "level": "info",
+            "filename": "logs\\wat-docs_%D.log",
+            "format": "%L on Line %l of %f\r\n%D %T: %M (%t)",
+            "maxLogFiles": 7
+        }
+    },
+
+    "wat_share": {
+        "enabled": true,
+        "showButton": true,
+        "buttonText": "Share",
+        "title": "Web App Template Documentation",
+        "url": "{currentURL}",
+        "screenshot": true,
+        "message": "{url} shared with {appLink} for Windows Store"
+    },
+
+    "wat_offline": {
+        "enabled": true,
+        "message": "It looks like you are offline. Please reconnect to use this application.",
+        "superCache": {
+            "enabled": false,
+            "proxyUri": "Auto",
+            "traceLevel": "Off",
+            "offlineMessage": "The application is offline. Some features might not work until the app is back online.",
+            "bypassUrlPatterns": [
+                ".*share\\?.*",
+                ".*hotmail\\.com.*",
+                ".*facebook\\.com.*",
+                ".*twitter\\.com.*",
+                ".*pinterest\\.com.*",
+                ".*instagram\\.com.*"
+            ]
+        }
+    },
+
+    "wat_geoLocation": {
+        "enabled": false
+    },
+
+    "wat_appBar": {
+        "enabled": false,
+        "makeSticky": false,
+        "buttons": [
+            {
+                "label": "Settings",
+                "icon": "edit",
+                "action": "settings"
+            },
+            {
+                "label": "Get Started",
+                "icon": "previewlink",
+                "action": "http://wat-docs.azurewebsites.net/GetStarted",
+                "section": "selection"
+            }
+        ]
+    },
+
+    "wat_navBar": {
+        "enabled": true,
+        "backgroundColor": "#3B3B3B",
+        "buttons": [
+            {
+                "label": "Home",
+                "icon": "home",
+                "action": "home"
+            },
+            {
+                "label": "About WAT",
+                "icon": "gotostart",
+                "action": "http://wat-docs.azurewebsites.net/About"
+            },
+            {
+                "label": "Getting Started",
+                "icon": "play",
+                "action": "http://wat-docs.azurewebsites.net/GetStarted"
+            },
+            {
+                "label": "Support",
+                "icon": "people",
+                "action": "http://wat-docs.azurewebsites.net/Support"
+            },
+            {
+                "label": "Log Message",
+                "icon": "edit",
+                "action": "eval",
+                "data": "console.log('this was fired from within the webview: ', window.location.href);"
+            }
+        ],
+        "pageElements._disabled": {
+            "pageElements._comment": "Instead of manually configuring the buttons as above, you can use the pageElements settings to build the buttons out of the site HTML DOM content.",
+            "navElements": ".navbar-nav li:not(.dropdown)",
+            "linkElement": "a",
+            "linkAttribute": "href",
+            "textElement": "a"
+        }
+    },
+
+    "wat_livetile": {
+        "enabled": true,
+        "periodicUpdate": 1,
+        "enableQueue": true,
+        "tilePollFeed": "http://wat-docs.azurewebsites.net/feed"
+    },
+    
+    "wat_notifications": {
+        "enabled": false,
+        "azureNotificationHub": {
+            "enabled": false,
+            "endpoint": "https://wat-demo.servicebus.windows.net/",
+            "secret": "bPQTTVcagkyDfsz3M+OIhwJNxP+Jy2pXDfmUomSUVa4=",
+            "path": "wat-demo",
+            "tags": [
+                "Category One",
+                "Category Two",
+                "Category Three",
+                "Category Four"
+            ]
+        }
+    },
+
+    "wat_redirects": {
+        "enabled": false,
+        "enableCaptureWindowOpen": true,
+        "refreshOnModalClose": true,
+        "rules": [
+            {
+                "pattern": "http://getbootstrap.com?",
+                "action": "showMessage",
+                "message": "Sorry, but you can't access this feature in the native app, please visit us online at http://wat-docs.azurewebsites.net"
+            },
+            {
+                "pattern": "*.microsoft.com*",
+                "action": "showMessage",
+                "message": "Redirecting you to the Microsoft website..."
+            },
+            {
+                "pattern": "http://msdn.microsoft.com/*",
+                "action": "popout"
+            },
+            {
+                "pattern": "{baseURL}/Json#search",
+                "action": "redirect",
+                "url": "http://bing.com"
+            },
+            {
+                "pattern": "*/drive_api/calculator/login",
+                "action": "modal",
+                "hideCloseButton": true,
+                "closeOnMatch": "*/drive_api/calculator/complete_login",
+                "customCssFile":  "/css/dialog-styles.css"
+            }
+        ]
+    },
+
+    "wat_settings": {
+        "enabled": true,
+        "privacyUrl": "http://wat-docs.azurewebsites.net/Privacy",
+        "items": [
+            {
+                "title": "Support",
+                "page": "http://wat-docs.azurewebsites.net/Support",
+                "loadInApp": true
+            },
+            {
+                "title": "Codeplex Site",
+                "page": "http://www.codeplex.com"
+            }
+        ]
+    },
+
+    "wat_styles": {
+      "setViewport": false,
+      "targetWidth": "",
+      "targetHeight": "800px",
+      "suppressTouchAction": false,
+      "hiddenElements": [
+        "header",
+        ".bs-header"
+      ],
+      "wrapperCssFile": "/css/wrapper-styles.css",
+      "customCssFile": "/css/injected-styles.css",
+      "customCssString": "body {padding:0;font-size: 14pt;} .container{margin-left:120px; margin-right:0px;} .bs-header{height: 140px;padding-left:0px;} .bs-header h1{margin:0;margin-top:10px;} .bs-header h1{margin-right:0;} .bs-header p{display:none;}"
+    },
+
+    "wat_ink": {
+      "enabled": true
+    },
+
+    "wat_titlebar": {
+      "backgroundColor": "#0F75BC",
+      "foregroundColor": "#FFFFFF"
+    },
+
+    "wat_header": {
+        "enabled": true,
+        "backgroundColor": "#0F75BC",
+        "logo": "/images/Square310x310Logo.png",
+        "title": {
+            "enabled": false,
+            "displayOnHomePage": true
+        }
+    },
+
+    "wat_search": {
+        "enabled": true,
+        "searchURL": "http://wat-docs.azurewebsites.net/search/?query={searchTerm}",
+        "onScreenSearchOptions": {
+            "chooseSuggestionOnEnter": false,
+            "focusOnKeyboardInput": false,
+            "placeholderText": "What are you looking for?",
+            "searchHistoryDisabled": false
+        }
+    },
+
+    "wat_secondaryPin": {
+        "enabled": false,
+        "buttonText": "Pin It!",
+        "tileTextTheme": "light",
+        "buttonSection": "global",
+        "squareImage": "/images/logo.scale-100.png",
+        "wideImage": "/images/widelogo.scale-100.png"
+    },
+
+    "wat_styleTheme": "dark"
+}

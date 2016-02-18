@@ -1,0 +1,28 @@
+﻿<script type="text/javascript">
+    (function () {
+        function redirectUri(evt) {
+            uriParser.href = evt.target.src;
+            if (uriParser.search.indexOf(targetHostParameter) < 0) {
+                var targetHost = encodeURIComponent(uriParser.protocol + '//' + uriParser.host);
+                uriParser.host = currentHost;
+                uriParser.search = '?' + targetHostParameter + '=' + targetHost;
+                evt.target.src = uriParser.href;
+            }
+        }
+
+        var targetHostParameter = 'x-wat-target-host';
+        var uriParser = document.createElement('a');
+        uriParser.href = window.location;
+        var currentHost = uriParser.host;
+        document.addEventListener("DOMNodeInserted", function (evt) {
+            if (evt.target.nodeName == 'IMG') {
+                redirectUri(evt);
+            }
+        });
+        document.addEventListener("DOMAttrModified", function (evt) {
+            if (evt.target.nodeName == 'IMG' && evt.attrName == 'src') {
+                redirectUri(evt);
+            }
+        });
+    })();
+</script>

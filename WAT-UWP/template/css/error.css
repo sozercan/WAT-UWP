@@ -1,0 +1,16 @@
+﻿body {
+    background: #444;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.offlineMessage {
+    display: block;
+    width: 100%;
+    color: #FFF;    
+    margin: 4em 0 2em;
+}
+
+.offline-image {
+   max-width: 100%;
+}

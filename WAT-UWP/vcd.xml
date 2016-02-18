@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.2">
+
+  <CommandSet xml:lang="en-us" Name="examplevcd">
+    <CommandPrefix>WAT</CommandPrefix> <!-- change this -->
+    <Example>Go to ...</Example>
+
+    <Command Name="watCommand">
+      <Example>Go to ...</Example>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase">Go [to] {options}</ListenFor>
+      <Feedback>Navigating to {options}</Feedback>
+      <Navigate/>
+    </Command>
+
+    <Command Name="search">
+      <Example>Search</Example>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase">Search [for] {searchTerm}</ListenFor>
+      <Feedback>Searching for {searchTerm}</Feedback>
+      <Navigate/>
+    </Command>
+
+    <PhraseList Label="options">
+    </PhraseList>
+
+    <PhraseTopic Label="searchTerm" Scenario="Search">
+    </PhraseTopic>
+
+  </CommandSet>
+</VoiceCommands>

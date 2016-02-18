@@ -1,0 +1,885 @@
+﻿{
+    "id": "schema-manifest",
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "WAT configuration template",
+    "definitions": {
+      "wat_navigation": {
+        "properties": {
+          "hideOnPageBackButton": {
+            "type": "boolean",
+            "description": "This toggles visibility of the back button on the main canvas across the entire application.",
+            "default": false
+          },
+          "hideBackButtonOnMatch": {
+            "type": "array",
+            "description": "This toggles visibility of the back button on specific pages. An array of objects, each of which is a URL for which the back button will be hidden. You can use {baseUrl} to signify the URL defined in 'start_url'.",
+            "default": [ "{baseURL}/Json#livetiles" ]
+          },
+          "pageLoadingPartial": {
+            "type": "string",
+            "description": "This is the path to a HTML partial which is shown as a progress indicator as the app transitions between pages.",
+            "default": "/template/partials/page-loading.html"
+          }
+        },
+        "type": "object",
+        "description": "This section controls how users navigate around the app."
+      },
+      "wat_speech": {
+        "cortana": {
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "description": "This toggles Cortana functionality for Windows 10. You will need to enable the 'Microphone' capability in the package.appxmanifest file, Capabilities section.",
+              "default": true
+            },
+            "navBar": {
+              "type": "boolean",
+              "description": "This toggles Cortana functionality for the nav bar.",
+              "default": true
+            },
+            "appBar": {
+              "type": "boolean",
+              "description": "This toggles Cortana functionality for app bar.",
+              "default": true
+            },
+            "settings": {
+              "type": "boolean",
+              "description": "This toggles Cortana functionality for settings.",
+              "default": true
+            },
+            "search": {
+              "type": "boolean",
+              "description": "This toggles Cortana functionality for search.",
+              "default": true
+            }
+          }
+        },
+        "inAppSpeech": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "This toggles in-app speech functionality for Windows 10. You will need to enable the 'Microphone' capability in the package.appxmanifest file, Capabilities section.",
+                    "default": true
+                },
+                "search": {
+                    "type": "boolean",
+                    "description": "This toggles in-app speech functionality for search.",
+                    "default": true
+                }
+            }
+        }
+      },
+
+        "wat_errors": {
+            "properties": {
+                "showAlertOnError": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "alertMessage": {
+                    "type": "string",
+                    "default": "Sorry, but there was an error. It has been logged. Please contact us if the issue continues."
+                },
+                "redirectToErrorPage": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "errorPageURL": {
+                    "type": "string",
+                    "default": "template/error.html"
+                }
+            },
+            "type": "object",
+            "description": "This section controls error handling functionality."
+        },
+        "wat_logging": {
+            "properties": {
+                "enabled": {
+                    "$ref": "#/definitions/enabled"
+                },
+                "level": {
+                    "$ref": "#/definitions/log_level"
+                },
+                "disableWithoutDebugger": {
+                    "type": "boolean",
+                    "description": "Set to true to turn off all logging if app is not running in Debug mode. Note: not recommended if using a file logger!",
+                    "default": false
+                },
+                "hideTagDisplay": {
+                    "type": "boolean",
+                    "description": "Set to true to hide WinJS logging tags from the output.",
+                    "default": false
+                },
+                "ignoreTags": {
+                    "type": "array",
+                    "description": "An array of string tags that should be ignored from logging. Any logged message with a matching tag will be ignored.",
+                    "default": [ ]
+                },
+                "logErrorsForIgnoredTags": {
+                    "type": "boolean",
+                    "description": "When set to true a logged message matching an ignored tag, but at the \"error\" level will still be logged.",
+                    "default": false
+                },
+                "overrideConsoleMethods": {
+                    "type": "boolean"
+                },
+                "disableConsoleLog": {
+                    "type": "boolean",
+                    "description": "Disables JavaScript console logging (useful if you want to log to a file, but not the console).",
+                    "default": false
+                },
+                "fileLog": {
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean",
+                            "description": "Whether or not logging to a local file is enabled.",
+                            "default": false
+                        },
+                        "level": {
+                            "$ref": "#/definitions/log_level"
+                        },
+                        "filename": {
+                            "type": "string",
+                            "description": "The name of the file to log to. Can contain a full path (make sure to escape slashes) to indicate sub directories. Files will be logged to the \"localFolder\" location for this app. Filenames support \"rolling\" by specifying a date, week, or month in the name. For example, \"app_log_%m.log\" will replace the \"%m\" with the year and month (YYYY-MM) in order to roll the log to a new file each month. Other options include %D for a specific day (YYYY-MM-DD) and %W for a week (YYYY-W).",
+                            "default": "logs\\wat-docs_%D.log"
+                        },
+                        "format": {
+                            "type": "string",
+                            "description": "The format of each log line. This can be formatted using special replacement characters: %D = Date in YYYY-MM-DD format; %f = Filename from originating function call; %L = Log level in (printed in uppercase); %l = Line number from originating file; %M = Log message; %T = Time in HH:ii:ss format; %t = Message tags. Note: you should at a minimum include the message (%M); you can also include new lines in your log with \"\r\n\".",
+                            "default": "%L on Line %l of %f\r\n%D %T: %M (%t)"
+                        },
+                        "maxLogFiles": {
+                            "type": "number",
+                            "description": "Allows the developer to specify how many log files to keep. This lets the developer keep disk usage under control. Use -1 to keep all log files.",
+                            "default": 8
+                        }
+                    },
+                    "type": "object",
+                    "default": null
+                }
+            },
+            "type": "object",
+            "description": "This section controls how the app logs events."
+        },
+        "wat_share": {
+            "properties": {
+                "enabled": {
+                    "$ref": "#/definitions/enabled"
+                },
+                "showButton": {
+                    "type": "boolean",
+                    "description": "Toggles visibility of a Share button on the app bar."
+                },
+                "buttonText": {
+                    "type": "string",
+                    "description": "Text used for the Share app bar button if it is enabled."
+                },
+                "buttonSection": {
+                    "type": "string",
+                    "description": "This sets the share button into a particular section of the app bar (if you have sections set up).",
+                    "default": "global"
+                },
+                "title": {
+                    "type": "string",
+                    "description": "Defines the title passed into the share charm.",
+                    "default": "Shared with the Web App Template:"
+                },
+                "url": {
+                    "type": "string",
+                    "description": "Defines a URL that is shared via the share contract. You can use {currentURL} to share the current URL of the webview.",
+                    "default": "{currentURL}"
+                },
+                "screenshot": {
+                    "type": "boolean",
+                    "description": "Enables the sharing of a screenshot."
+                },
+                "message": {
+                    "type": "string",
+                    "description": "Defines a message for the share contract contents. You can use {currentURL} to reference the current URL or {url} to reference the base URL.",
+                    "default": "{currentURL}"
+
+                }
+            },
+            "type": "object",
+            "description": "This section controls the use of the share charm within the application."
+        },
+      "wat_offline": {
+        "properties": {
+          "enabled": {
+            "$ref": "#/definitions/enabled"
+          },
+          "message": {
+            "type": "string",
+            "description": "A message that is displayed to the user when the app goes offline.",
+            "default": "It looks like you are offline. Please reconnect to use this application."
+          },
+          "superCache": {
+            "properties": {
+              "enabled": {
+                "type": "boolean",
+                "description": "Enables or disables the SuperCache feature.",
+                "default": false
+              },
+              "proxyUri": {
+                "type": "string",
+                "description": "Specifies the URL of the SuperCache's proxy web server (e.g. http://127.0.0.1:8888/). Use 'Auto' to assign an address dynamically.",
+                "default": "Auto"
+              },
+              "traceLevel": {
+                "type": "string",
+                "description": "Specifies the verbosity of diagnostic information produced by SuperCache (see the Output window in Visual Studio when managed debugging is enabled). Allowed values are: Off, Error, Warning, Info, and Verbose.",
+                "enum": [ "Off", "Error", "Warning", "Verbose", "Info" ],
+                "default": "Error"
+              },
+              "enableDynamicImageHandler": {
+                "type": "boolean",
+                "description": "Enables SuperCache to detect and cache images dynamically inserted into the DOM.",
+                "default": false
+              },
+              "enableRedirectWindowOpen": {
+                "type": "boolean",
+                "description": "Enables SuperCache to detect and handle requests that occur as the result of a window.open() call.",
+                "default": false
+              },
+              "enableXhrInterceptor": {
+                "type": "boolean",
+                "description": "Enables SuperCache to detect and handle requests that occur as the result of an XMLHttpRequest call.",
+                "default": false
+              },
+              "bypassUrlPatterns": {
+                "type": "array",
+                "description": "An array of regular expressions specifying URLs that should *not* be handled by the SuperCache. Any URL that matches a pattern in this list is sent directly to its destination bypassing the SuperCache. Typically used in authentication scenarios.",
+                "default": [ ]
+              },
+              "offlineMessage": {
+                "type": "string",
+                "description": "A message that is displayed to the user when the app goes offline and SuperCache is enabled.",
+                "default": "The application is offline. Some features might not work until the app is back online."
+              }
+            },
+            "type": "object",
+            "description": "Options for the SuperCache feature"
+          }
+        },
+        "type": "object",
+        "description": "This section controls the offline behaviour for the app.",
+        "default": { }
+      },
+      "wat_ink": {
+        "properties": {
+          "enabled": {
+            "$ref": "#/definitions/enabled"
+          }
+        },
+        "type": "object",
+        "description": "Toggles inking functionality"
+      },
+      "wat_titlebar": {
+            "properties": {
+              "backgroundColor": {
+                "type": "string",
+                "description": "A hex code for the titlebar's background color."
+              },
+              "foregroundColor": {
+                "type": "string",
+                "description": "A hex code for the titlebar's foreground color."
+              }
+            },
+            "type": "object",
+            "description": "Customizes titlebar colors"
+        },
+        "wat_geoLocation": {
+            "properties": {
+                "enabled": {
+                    "$ref": "#/definitions/enabled"
+                }
+            },
+            "type": "object",
+            "description": "Geolocation is not natively supported in the webview. Enable this feature to add native support just as it is in the browser."
+        },
+        "wat_customScript": {
+            "properties": {
+                "scriptFiles": {
+                    "type": "array"
+                }
+            },
+            "type": "object",
+            "description": "An array of custom script files stored within the app package that are injected into the DOM.",
+            "default": { "scriptFiles": [ "injection-script-example.js" ] }
+        },
+        "wat_appBar": {
+            "properties": {
+                "enabled": {
+                    "$ref": "#/definitions/enabled"
+                },
+                "makeSticky": {
+                    "type": "boolean",
+                    "description": "Toggles whether the app bar is always visible or not."
+                },
+                "backgroundColor": {
+                    "type": "string",
+                    "description": "A hex code or css color name for the App bar's background color."
+                },
+                "buttonColor": {
+                    "type": "string",
+                    "description": "A hex code or css color name for the color of the app bar's buttons."
+                },
+                "buttons": {
+                    "type": "array",
+                    "default": [ ],
+                    "uniqueItems": true,
+                    "items": {
+                        "properties": {
+                            "label": {
+                                "type": "string"
+                            },
+                            "icon": {
+                                "type": "string"
+                            },
+                            "action": {
+                                "type": "string"
+                            },
+                            "section": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                }
+            },
+            "type": "object",
+            "description": "This section controls the application bar at the bottom of the screen."
+        },
+        "wat_navBar": {
+            "properties": {
+                "enabled": {
+                    "$ref": "#/definitions/enabled"
+                },
+                "maxRows": {
+                    "type": "number",
+                    "description": "Sets the maximum number of rows that are used to display buttons before the nav bar starts paging."
+                },
+                "makeSticky": {
+                    "type": "boolean",
+                    "description": "Toggles whether the app bar is always visible or not."
+                },
+                "backgroundColor": {
+                    "type": "string",
+                    "description": "A hex code or css color name for the nav bar's background color."
+                },
+                "buttonFaceColor": {
+                    "type": "string",
+                    "description": "A hex code or css color name for the background (face) color of the nav bar's buttons."
+                },
+                "buttonTextColor": {
+                    "type": "string",
+                    "description": "A hex code or css color name for the foreground (or text) color of the nav bar's buttons."
+                },
+                "buttons": {
+                    "type": "array",
+                    "default": [ ],
+                    "uniqueItems": true,
+                    "items": {
+                        "properties": {
+                            "label": {
+                                "type": "string"
+                            },
+                            "icon": {
+                                "type": "string"
+                            },
+                            "action": {
+                                "type": "string"
+                            },
+                            "section": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "pageElements": {
+                    "type": "object",
+                    "description": "Specifies selectors to build the nav bar buttons using content from the page DOM.",
+                    "properties": {
+                        "navElements": {
+                            "type": "string",
+                            "description": "Selector to find the button items."
+                        },
+                        "linkElement": {
+                            "type": "string",
+                            "description": "Selector to find the link of a nav button. The 'linkAttribute' property will be used in this link element to get the location for the nav button action."
+                        },
+                        "linkAttribute": {
+                            "type": "string",
+                            "description": "Selector to get the attribute with the value of the location for the nav button. This selector will be applied over the 'linkElement'."
+                        },
+                        "textElement": {
+                            "type": "string",
+                            "description": "Selector to get the text content for the nav button."
+                        },
+                        "iconElement": {
+                            "type": "string",
+                            "description": "Selector to find the element that contains an icon image for the nav button."
+                        },
+                        "iconAttribute": {
+                            "type": "string",
+                            "description": "Selector to get the attribute with the value of the icon location. This selector will be applied over the 'iconElement'."
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "description": "This section controls de nav bar."
+        },
+        "wat_livetile": {
+            "properties": {
+                "enabled": {
+                    "$ref": "#/definitions/enabled"
+                },
+                "periodicUpdate": {
+                    "type": "number",
+                    "description": "Number which defines how often the tile updates based on the PeriodicUpdateRecurrence enumeration. Valid values are 0, 1, 2, 3 or 4. 0 is most frequent (half an hour), 4 is the least frequent (daily).",
+                    "enum": [ 0, 1, 2, 3, 4 ]
+
+                },
+                "enableQueue": {
+                    "type": "boolean",
+                    "description": "Toggles multiple live tile updates. When set to true the live tile on the start screen will cycle through multiple tile updates either via the RSS feed or multiple push notification updates."
+                },
+                "templateStyle": {
+                    "type": "string"
+                },
+                "tilePollFeed": {
+                    "type": "string",
+                    "description": "The URL for the RSS feed that will drive the live tile updates. This can be any RSS feed."
+                }
+            },
+            "type": "object",
+            "description": "This section controls the application's live tile notifications on the phone's start screen."
+        },
+        "wat_notifications": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Toggles the functionality on or off."
+                },
+                "azureNotificationHub": {
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean",
+                            "description": "Toggles the functionality on or off."
+                        },
+                        "endpoint": {
+                            "type": "string",
+                            "description": "The URL to your Microsoft Azure Service Bus namespace. You can get it from the Microsoft Azure Portal, go into on your service bus namespace, then Notification Hubs tab, go into your notification hub and click connection information button at the bottom. And press the copy button on the DefaultListenSharedAccessSignature and paste it somewhere temporarily. Eg. Endpoint=sb://your-wat-sbnamespace.servicebus.windows.net/;... Then copy the endpoint URL not including sb:// and ; and paste into this member of the json config file after https:// to look like example below."
+                        },
+                        "secret": {
+                            "type": "string",
+                            "description": "The shared access key for the Microsoft Azure Notification Hub. From that DefaultListenSharedAccessSignature you pasted somewhere temporarily Eg. ...;SharedAccessKey=bPQTTVcagkyDfsz3M+OIhwJNxP+Jy2pXDfmUomSUVa4= copy the key and paste into this member of the json config file to look like example below."
+                        },
+                        "path": {
+                            "type": "string",
+                            "description": "The name you provided when creating the Notification Hub in the Microsoft Azure Portal."
+                        },
+                        "tags": {
+                            "type": "array",
+                            "description": "An array of strings that allow your user of this App to turn on and off subscriptions to push notifications for multiple channels or categories you can determin that make sense for your app. The user simple opens the App settings flyout from the Settings Charm and then selects Notifications. That way when your back-end pushes notifications for a particular feature or topic the user can decide to filter them. Of course these strings have to be consistent between the subscriber (instance of this App) and push notification sender (your website/back-end).",
+                            "uniqueItems": true
+                        }
+                    },
+                    "type": "object",
+                    "description": "A collection of properties which control how the app behaves with Microsoft Azure Notification Hub."
+                }
+            },
+            "type": "object",
+            "description": "This section controls how push notifications are configured currently provided by the Microsoft Azure Notification Hub service."
+        },
+        "wat_redirects": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Toggles the functionality on or off."
+                },
+                "enableCaptureWindowOpen": {
+                    "type": "boolean",
+                    "description": " This captures popups (new windows). Think about this as a way to catch facebook logins or similar things that need to happen in the app. Once this value is enabled, you can control this on each of the redirects."
+                },
+                "refreshOnModalClose": {
+                    "type": "boolean",
+                    "description": "Set this to true if you need to have the app refresh when this modal closes (for example, like in a login scenario) ."
+                },
+                "rules": {
+                    "type": "array",
+                    "description": "An array of objects, each of which represent a re-direction.",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "pattern": {
+                                "type": "string",
+                                "description": "The pattern that the rule should match to take effect."
+                            },
+                            "action": {
+                                "type": "string",
+                                "description": "The action associated with this operation, this can be one of four options: showMessage, popout, redirect or modal.",
+                                "enum": [ "showMessage", "popout", "redirect", "modal" ]
+                            },
+                            "url": {
+                                "type": "string",
+                                "description": "The URL to redirect to if action is set to url."
+                            },
+                            "hideCloseButton": {
+                                "type": "boolean",
+                                "description": "Hides close button on modal windows."
+                            },
+                            "closeOnMatch": {
+                                "type": "string",
+                                "description": "A URL that when it is loaded, it forces the modal to close."
+                            },
+                            "message": {
+                                "type": "string",
+                                "description": "The message that is used if the action is set to showMessage."
+                            },
+                            "customCssFile": {
+                                "type": "string",
+                                "description": "A path to a CSS file with styles to be applied to the modal window if action is set to modal."
+                            }
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "description": "This section controls enables you to specify which URLs remain inside the app and which ones open in the browser."
+        },
+        "wat_settings": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Toggles the functionality on or off."
+                },
+                "privacyUrl": {
+                    "type": "string",
+                    "description": "Defines a URL link to the application's privacy policy. A privacy policy is typically required for app to pass store certification."
+                },
+                "items": {
+                    "type": "array",
+                    "description": "Defines an array of item that are used in the settings charm.",
+                    "uniqueItems": true,
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "title": {
+                                "type": "string",
+                                "description": "Defines the text for the settings item."
+                            },
+                            "page": {
+                                "type": "string",
+                                "description": "Defines the URL for the settings item."
+                            },
+                            "loadInApp": {
+                                "type": "boolean",
+                                "description": "Defines whether the URL is opened in the app or the browser."
+                            }
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "description": "This section controls the use of the settings charm within the application."
+        },
+        "wat_styles": {
+            "properties": {
+                "setViewport": {
+                    "type": "boolean",
+                    "description": "Toggles whether the CSS is created to set the –ms-viewport setting."
+                },
+                "targetWidth": {
+                    "type": "string",
+                    "description": "The target width value that is passed into viewport settings (pixels). This can be blank. NOTE: do not use this for websites that already have a responsive base."
+                },
+                "targetHeight": {
+                    "type": "string",
+                    "description": "The target height value that is passed into viewport settings (pixels). This can be blank. NOTE: do not use this for websites that already have a responsive base."
+                },
+                "suppressTouchAction": {
+                    "type": "boolean",
+                    "description": "Toggles whether the top level touch events are surpressed or not. This is quite helpful with SPA where you don’t want to be able to see scrolling or ruberbanding of the page."
+                },
+                "hiddenElements": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "uniqueItems": true,
+                    "description": "An array of strings that reference HTML elements. This enables you to hide any website HTML elements from your application. This is ideal for removing any unwanted top navigation, footers etc from the application view."
+                },
+                "wrapperCssFile": {
+                    "type": "string",
+                    "description": " A path to a file that applies styles to the native aspects of the app such as app bars, back button etc."
+                },
+                "customCssFile": {
+                    "type": "string",
+                    "description": " A path to a file that injects styles into the web view control and can overide CSS within the website itself."
+                },
+                "customCssString": {
+                    "type": "string",
+                    "description": "This enables you to embed CSS styles which get inserted over the existing styles on your website. This is great for adjusting the style of the site when it is presented as an application. This can be used as an alterntive to the injected-styles.css."
+                }
+            },
+            "type": "object",
+            "description": "This section allows the user to configure the application's view of their website."
+        },
+        "wat_header": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Toggles the functionality on or off."
+                },
+                "backgroundColor": {
+                    "type": "string",
+                    "description": "A hex code that defines the background colour for the header."
+                },
+                "navDrawerBackgroundColor": {
+                    "type": "string",
+                    "description": "A hex code that defines the background colour for the nav drawer for phone."
+                },
+                "logo": {
+                    "type": "string",
+                    "description": "The path to an image that is used as a logo in the header. This is only used if the title is disabled."
+                },
+                "title": {
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean",
+                            "description": "Toggles the functionality on or off."
+                        },
+                        "displayOnHomePage": {
+                            "type": "boolean",
+                            "description": "Toggles whether to display the title text on the home page. If set to false, the title text will still be applied to all other pages."
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "type": "object",
+            "description": "This section controls the use of a native page header within the application."
+        },
+        "wat_search": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Toggles the functionality on or off."
+                },
+                "searchURL": {
+                    "type": "string",
+                    "description": "Defines the URL that the search term will be appended to in order to return search results."
+                },
+                "onScreenSearchOptions": {
+                    "properties": {
+                        "chooseSuggestionOnEnter": {
+                            "type": "boolean",
+                            "description": "Defines whether user can choose from a list of search suggestions."
+                        },
+                        "focusOnKeyboardInput": {
+                            "type": "boolean",
+                            "description": "Defines whether open the touch keyboard when the search box receives focus."
+                        },
+                        "placeholderText": {
+                            "type": "string",
+                            "description": "The text that is shown by default within the search box."
+                        },
+                        "searchHistoryDisabled": {
+                            "type": "boolean",
+                            "description": "Toggles whether to keep search history."
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "type": "object",
+            "description": "This section controls the use of the search charm within the application."
+        },
+        "wat_ratingReminder": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Toggles the functionality on or off."
+                },
+                "runsBeforeReminder": {
+                    "type": "string",
+                    "description": "Sets number of times the app runs before showing the reminder."
+                }
+            }
+        },
+        "wat_secondaryPin": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Toggles the functionality on or off."
+                },
+                "buttonText": {
+                    "type": "string",
+                    "description": "Text that is used on the pin button."
+                },
+                "tileTextTheme": {
+                    "type": "string",
+                    "description": "The visual theme for the tile."
+                },
+                "buttonSection": {
+                    "type": "string",
+                    "description": "This sets the share button into a particular section of the app bar (if you have sections set up) the default is global."
+                },
+                "squareImage": {
+                    "type": "string",
+                    "description": "A path to a square image that is used for secondary tiles."
+                },
+                "wideImage": {
+                    "type": "string",
+                    "description": "A path to a wide image that is used for secndary tiles."
+                },
+                "customImageSelector": {
+                    "type": "string",
+                    "description": "A custom selector that the template can use to extract an image from the pinned page."
+                }
+            },
+            "type": "object",
+            "description": "This section controls the secondary pin functionality in the app bar."
+        },
+        "log_level": {
+            "type": "string",
+            "enum": [ "log", "perf", "info", "warn", "error" ],
+            "default": "info",
+            "description": "Logged messages below this level will NOT be logged. Useful for debugging when set to lower number/level. you can use either the integer index or the string level."
+        },
+        "enabled": {
+            "type": "boolean",
+            "description": "Toggles the functionality on or off.",
+            "default": true
+        },
+        "wat_startup": {
+            "properties": {
+                "showContentWhileLoading": {
+                    "type": "boolean",
+                    "description": "Toggle the display of content vs the extended splash screen at application startup. When set to false, the extended splash screen will be shown until the app has completed navigation to baseUrl. When set to true the extended splash screen will be hidden earlier, even if navigation to the baseUrl has not completed (the user will see the loading overlay). Guideline: set it to true only for apps that take long to load, to improve the perceived startup time.",
+                    "default": false
+                }
+            },
+            "type": "object",
+            "description": "This section controls the properties used during application startup.",
+            "default": { "showContentWhileLoading": false }
+        }
+    },
+    "properties": {
+        "id": {
+            "type": "string",
+            "description": "The id of the manifest."
+        },
+        "$schema": {
+            "type": "string",
+            "description": "The schema used to create the file."
+        },
+        "title": {
+            "type": "string",
+            "description": ""
+        },
+        "name": {
+            "type": "string",
+            "description": "The text used in the name of the app. Used in several places such as Share Charm, Secondary Tiles etc."
+        },
+        "start_url": {
+            "type": "string",
+            "description": "This is the landing page for the app, usually a hub screen, does not have to be the root of web site."
+        },
+        "orientation": {
+            "type": "string",
+            "description": "",
+            "enum": [
+                "any",
+                "natural",
+                "landscape",
+                "portrait",
+                "portrait-primary",
+                "portrait-secondary",
+                "landscape-primary",
+                "landscape-secondary"
+            ],
+            "default": "any"
+        },
+        "wat_navigation": {
+            "$ref": "#/definitions/wat_navigation"
+        },
+        "wat_speech": {
+            "$ref": "#/definitions/wat_speech"
+        },
+        "wat_errors": {
+            "$ref": "#/definitions/wat_errors"
+        },
+        "wat_logging": {
+            "$ref": "#/definitions/wat_logging"
+        },
+        "wat_share": {
+            "$ref": "#/definitions/wat_share"
+        },
+        "wat_offline": {
+            "$ref": "#/definitions/wat_offline"
+        },
+        "wat_geoLocation": {
+          "$ref": "#/definitions/wat_geoLocation"
+        },
+        "wat_ink": {
+          "$ref": "#/definitions/wat_ink"
+        },
+       "wat_titlebar": {
+          "$ref": "#/definitions/wat_ink"
+        },
+        "wat_customScript": {
+            "$ref": "#/definitions/wat_customScript"
+        },
+        "wat_appBar": {
+            "$ref": "#/definitions/wat_appBar"
+        },
+        "wat_navBar": {
+            "$ref": "#/definitions/wat_navBar"
+        },
+        "wat_livetile": {
+            "$ref": "#/definitions/wat_livetile"
+        },
+        "wat_notifications": {
+            "$ref": "#/definitions/wat_notifications"
+        },
+        "wat_redirects": {
+            "$ref": "#/definitions/wat_redirects"
+        },
+        "wat_settings": {
+            "$ref": "#/definitions/wat_settings"
+        },
+        "wat_styles": {
+            "$ref": "#/definitions/wat_styles"
+        },
+        "wat_header": {
+            "$ref": "#/definitions/wat_header"
+        },
+        "wat_search": {
+            "$ref": "#/definitions/wat_search"
+        },
+        "wat_secondaryPin": {
+            "$ref": "#/definitions/wat_secondaryPin"
+        },
+        "wat_styleTheme": {
+            "type": "string",
+            "description": "This determines whether the app will use the light or dark theme for UI components.",
+            "enum": [ "dark", "light" ],
+            "default": "dark"
+        },
+        "wat_isroller": {
+            "type": "boolean",
+            "description": "Toggles the functionality on or off.",
+            "default": false
+        },
+        "wat_startup": {
+            "$ref":  "#/definitions/wat_startup"
+        }
+    },
+    "required": [ "start_url", "name" ],
+    "additionalProperties": false,
+    "type": "object"
+}

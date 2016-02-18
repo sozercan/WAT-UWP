@@ -1,0 +1,26 @@
+﻿// For details on localizing a Windows app, see: http://go.microsoft.com/fwlink/?LinkId=212836
+
+{
+	"searchPlaceholder"           : "Search Query",
+    "_searchPlaceholder.comment"  : "This is the message for SearchBox control",
+	"notificationHeader"          : "Notifications",
+    "_notificationHeader.comment" : "This is the header text for the Notification Settings",
+	"privacy"					  : "Privacy",
+    "_privacy.comment"			  : "This is the privacy option caption",
+	"notificationsTitle"          : "Notifications",
+    "_notificationsTitle.comment" : "This is the Notifications option caption",
+	"rollerTitle"				  : "Change Config Host Address",
+	"rollerTitle.comment"		  : "This is the Roller settings title",
+	"rollerSettingsTitle"		  : "Hosted Content Change",
+	"rollerSettingsTitle.comment" : "This is the Roller Settings Flyout Title",
+	"hostUrlLabel"		  : "Update the URL for your host file:",
+	"hostUrlLabel.comment" : "This is the label for the Host URL input",
+	"updateHostUrlButton"		  : "Update host URL",
+	"updateHostUrlButton.comment" : "This is the caption of the Update Host Button",
+	"refreshConfigButton"		  : "Refresh config",
+	"refreshConfigButton.comment" : "This is the caption of the Update Host Button",
+	"clearConfigButton"		  : "Clear config",
+	"clearConfigButton.comment" : "This is the caption of the Clear Config Button"
+
+
+}

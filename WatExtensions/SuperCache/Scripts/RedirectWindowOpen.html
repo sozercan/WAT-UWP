@@ -1,0 +1,58 @@
+﻿<script type="text/javascript">
+    (function () {
+        function getCurrentTargetHost(search) {
+            var targetHostParameterStartIndex = search.indexOf(targetHostParameter);
+            if (targetHostParameterStartIndex < 0)
+                return null;
+            else
+                targetHostParameterStartIndex = targetHostParameterStartIndex + targetHostParameter.length + 1;
+
+            var targetHostParameterEndIndex = search.indexOf('&', targetHostParameterStartIndex);
+            if (targetHostParameterEndIndex < 0)
+                targetHostParameterEndIndex = search.length;
+            else
+                targetHostParameterEndIndex = targetHostParameterEndIndex - 1;
+
+            var encodedTargetHost = search.substring(targetHostParameterStartIndex, targetHostParameterEndIndex);
+            console.log('[WAT] EncodedTargetHost: \'' + encodedTargetHost + '\'');
+
+            return decodeURIComponent(encodedTargetHost);
+        }
+
+        function redirectUri(uri, currentHost, currentTargetHost) {
+            var targetHost = currentTargetHost;
+            uriParser.href = uri;
+
+            if (uriParser.host) {
+                var targetHost = encodeURIComponent(uriParser.protocol + '//' + uriParser.host);
+            }
+
+            if (uriParser.search.indexOf(targetHostParameter) < 0 && targetHost) {
+                uriParser.host = currentHost;
+                uriParser.search = '?' + targetHostParameter + '=' + targetHost;
+                return uriParser.href;
+            }
+
+            return uri;
+        }
+
+        var targetHostParameter = 'x-wat-target-host';
+        var uriParser = document.createElement('a');
+
+
+        window.originalOpenMethod = window.open;
+
+        window.open = function () {
+            uriParser.href = window.location;
+            var currentHost = uriParser.host;
+            var currentTargetHost = getCurrentTargetHost(uriParser.search);
+            console.log('[WAT] location: ' + window.location + ' currentTargetHost: ' + currentTargetHost);
+
+            console.log('[WAT] intercepted window.open going to: ' + arguments[0]);
+            var redirectedUri = redirectUri(arguments[0], currentHost, currentTargetHost);
+
+            console.log('[WAT] redirect window.open to: ' + redirectedUri);
+            window.originalOpenMethod(redirectedUri);
+        }
+    })();
+</script>

@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>No connection</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <style>
+        body {
+            -ms-touch-action: none !important;
+            font-family: Helvetica, Arial, sans-serif;
+            text-align: center;
+            background-color: #ffffff;
+            color: #000000;
+            padding: 5px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        p.subtitle {
+            font-weight: 300;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        @media screen and (min-width:400px) {
+            body {
+                margin: 10% 0 0 0;
+            }
+
+            h1 {
+                margin: 0 0 5px 0;
+            }
+
+            p.subtitle {
+                margin: 10px auto;
+            }
+
+            .logo {
+                height: 120px;
+                padding-bottom: 5%;
+                margin: 5px auto 10px auto;
+            }
+        }
+
+        @media screen and (max-width:390px) {
+            body {
+                margin: 30% 0 0 0;
+            }
+
+            h1 {
+                margin: 0 0 10px 0;
+            }
+
+            p.subtitle {
+                margin: 20px auto;
+            }
+
+            .logo {
+                height: 150px;
+                padding-top: 5%;
+                padding-bottom: 10%;
+                margin: 20px auto 15px auto;
+            }
+        }
+
+        @media screen and (orientation:portrait) {
+            body {
+                margin: 10% 0 0 0;
+            }
+
+            h1 {
+                margin: 0 0 5px 0;
+            }
+
+            p.subtitle {
+                margin: 10px auto;
+            }
+
+            .logo {
+                height: 90px;
+                padding-bottom: 5%;
+                margin: 40% auto 10px auto;
+            }
+        }
+
+        @media screen and (max-height:390px) {
+            body {
+                margin: 0px;
+                padding-top: 10px;
+                padding-left: 10px;
+            }
+
+            h1 {
+                margin: 0 0 10px 0;
+                font-size: 16px;
+            }
+
+            p.subtitle {
+                margin: 10px auto;
+                font-size: 12px;
+            }
+
+            p.offlineMessage {
+                font-size: 12px;
+            }
+
+            .logo {
+                height: 50px;
+                padding-top: 0px;
+                padding-bottom: 0px;
+                margin: 20px auto 15px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!--Uncomment the following line if you want to include an offline logo-->
+    <!--<img src="../images/offlinelogo.png" class="logo" />-->
+
+    <h1>Hmm...</h1>
+    <p class="offlineMessage"></p>
+    <p class="supercacheMessage">That's okay! To work in offline mode, you need to run the application at least once while connected to the Internet.</p>
+</body>
+</html>

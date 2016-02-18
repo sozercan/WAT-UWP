@@ -1,0 +1,17 @@
+{
+    "$schema": "/schema/schema-manifest.json",
+    "start_url": "http://www.microsoft.com/",
+    "name" :  "Web Application Template",
+
+    "wat_customScript": {
+        "scriptFiles._comment": "An array of custom script files stored within the app package that are injected into the DOM",
+        "scriptFiles": [
+            "injection-script-example.js"
+        ]
+    },
+
+    "wat_styles": {
+        "customCssFile._comment": "This enables you to embed CSS styles which get inserted over the existing styles on your website. This is great for adjusting the style of the site when it is presented as an application. This can be used as an alterntive to the injected-styles.css.",
+        "customCssFile": "/css/injected-styles.css"
+    }
+}

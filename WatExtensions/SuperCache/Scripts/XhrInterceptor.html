@@ -1,0 +1,63 @@
+﻿<script type="text/javascript">
+    (function () {
+        // Save reference to earlier version of XHR.open method
+        var oldXhrPrototypeOpenMethod = window.XMLHttpRequest.prototype.open;
+
+        function getCurrentTargetHost(location) {
+            var search = location.search;
+            var targetHostParameterStartIndex = search.indexOf(targetHostParameter);
+            if (targetHostParameterStartIndex < 0)
+                return null;
+            else
+                targetHostParameterStartIndex = targetHostParameterStartIndex + targetHostParameter.length + 1;
+
+            var targetHostParameterEndIndex = search.indexOf('&', targetHostParameterStartIndex);
+            if (targetHostParameterEndIndex < 0)
+                targetHostParameterEndIndex = search.length;
+            else
+                targetHostParameterEndIndex = targetHostParameterEndIndex - 1;
+
+            var encodedTargetHost = search.substring(targetHostParameterStartIndex, targetHostParameterEndIndex);
+            var targetHost = decodeURIComponent(encodedTargetHost);
+            console.log('[WAT.WatExtensions.SuperCache.InjectedXhr.CurrentTargetHost] TargetHost: \'' + targetHost + '\'');
+
+            return targetHost;
+        }
+
+        function redirectUri(uri, location) {
+            var targetHost = getCurrentTargetHost(location);
+            uriParser.href = uri;
+
+            if (uriParser.host) {
+                var targetHost = uriParser.protocol + '//' + uriParser.host + '/';
+            }
+
+            if (uriParser.search.indexOf(targetHostParameter) < 0 && targetHost) {
+                uriParser.host = location.host;
+                var targetHostPair = targetHostParameter + '=' + encodeURIComponent(targetHost);
+                uriParser.search = (uriParser.search)
+                    ? uriParser.search + '&' + targetHostPair
+                    : '?' + targetHostPair;
+                return uriParser.href;
+            }
+
+            return uri;
+        }
+
+        var targetHostParameter = 'x-wat-target-host';
+        var uriParser = document.createElement('a');
+
+        // Redefine XHR.open method to redirect uris
+        window.XMLHttpRequest.prototype.open = function () {
+
+            console.log('[WAT.WatExtensions.SuperCache.InjectedXhr.open] Uri: ' + arguments[1]);
+            arguments[1] = redirectUri(arguments[1], window.location);
+            console.log('[WAT.WatExtensions.SuperCache.InjectedXhr.open] RedirectedUri: ' + arguments[1]);
+
+            // Use saved version of XHR.open to actually execute requests
+            return oldXhrPrototypeOpenMethod.apply(this, [].slice.call(arguments));
+        };
+
+    })();
+</script>
+

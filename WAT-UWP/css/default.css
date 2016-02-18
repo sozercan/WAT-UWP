@@ -1,0 +1,100 @@
+﻿.viewport {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.surface {
+    width: 100%;
+    height: 100%;
+}
+
+    .surface .splitView .nav-commands {
+        margin-top: 50px;
+    }
+
+.defaultLoad {
+    position: absolute;
+    top: 45%;
+    left: 45%;
+    width: 100%;
+    color: black;
+    font-size: 2em;
+    letter-spacing: 0.2em;
+}
+
+    .defaultLoad progress {
+        width: 10%;
+        margin: 0 auto;
+    }
+
+.content {
+    -ms-grid-column: 2;
+    -ms-grid-columns: 1fr;
+    -ms-grid-rows: 50px 1fr;
+    display: -ms-grid;
+    height: 100%;
+    width: 100%;
+}
+
+        .content .header {
+            -ms-grid-columns: 50px 1fr 275px;
+            -ms-grid-rows: 1fr;
+            display: -ms-grid;
+        }
+
+        .content .header .logoarea {
+            -ms-grid-column: 2;
+            margin-left: 150px;
+            -ms-grid-column-align: center;
+            -ms-grid-row-align: center;
+        }
+            
+        .content .header .logoarea #logo {
+            width: 300px !important;
+        }
+
+        .content .header .titlearea {
+            -ms-grid-column: 2;
+            -ms-grid-column-align: center;
+            -ms-text-overflow: ellipsis;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .content .header .searchFlyout {
+            margin-right: 200px;
+        }
+
+        .content .stage {
+            -ms-grid-row: 2;
+            height: 100%;
+            width: 100%;
+            position: relative;
+        }
+
+#toolBar {
+    -ms-grid-column: 3;
+    width: 400px;
+    -ms-grid-column-align: end;
+}
+
+#appBar {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    position: absolute;
+}
+
+#splitView {
+    width: auto;
+    height: auto;
+    position: static;
+    display: inline;
+}
+
+.hidden {
+    display: none;
+}
+

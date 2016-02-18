@@ -1,0 +1,28 @@
+(function () {
+	if (navigator.geolocation) {
+	    return;
+	}
+
+	var waitingOnSuccess = [];
+	var waitingOnError = [];
+
+	navigator.geolocation = {}; 
+	navigator.geolocation.getCurrentPosition = function (success, error, options) {
+	    var geoobj = {};
+	    geoobj.coords = {};
+
+	    geoobj.coords.latitude = ###LOCLAT###
+	    geoobj.coords.longitude = ###LOCLONG###;
+
+	    setTimeout(success, 0, geoobj);
+		//var order = {
+		//	type: "GEO",
+		//	options: options
+		//};
+
+		//waitingOnSuccess.push(success);
+		//waitingOnError.push(error);
+
+		//window.external.notify(JSON.stringify(order));
+	}
+})();
